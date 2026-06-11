@@ -306,7 +306,7 @@
 
 import streamlit as st
 import joblib
-import pickle
+#import pickle
 import pandas as pd
 import numpy as np
 from scipy.sparse import csr_matrix
@@ -534,7 +534,7 @@ if st.button("✨ Generate Products for Selected Cluster", type="primary", key="
         recomm = get_cluster_recommendations(cluster_id=selected_cluster, top_n=selected_top_n)
         if not recomm.empty:
             recomm.index.name = 'Product ID'
-            st.dataframe(recomm.rename(columns={'count': 'Total Group Reviews', 'mean': 'Average Quality Score'}), use_container_width=True)
+            st.dataframe(recomm.rename(columns={'count': 'Total Group Reviews', 'mean': 'Average Rating'}), use_container_width=True)
         else:
             st.warning("No data records found for this cluster.")
 st.divider()
@@ -557,7 +557,7 @@ if st.button("✨ Generate Similar Products", type="primary", key="btn_mod3"):
         get_prod_recommendations = get_cosine_product_recommendations(target_product_id=selected_product, top_n=selected_top_product)
 
         if isinstance(get_prod_recommendations, pd.DataFrame) and not get_prod_recommendations.empty:
-            st.dataframe(get_prod_recommendations.rename(columns={'productId': 'Alternative Product ID', 'Cosine_Similarity': 'Similarity'}), use_container_width=True, hide_index=True)
+            st.dataframe(get_prod_recommendations.rename(columns={'productId': 'Similar Products', 'Cosine_Similarity': 'Similarity'}), use_container_width=True, hide_index=True)
         else:
             st.warning("No similar products available for selectec product")
 
